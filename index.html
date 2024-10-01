@@ -1,0 +1,73 @@
+
+import React, { useState } from 'react';
+import { Heart, SkipBack, Play, Pause, SkipForward } from 'lucide-react';
+
+const LoveStoryPage = () => {
+  const [showImages, setShowImages] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const toggleImages = () => setShowImages(!showImages);
+
+  const togglePlay = () => setIsPlaying(!isPlaying);
+
+  return (
+    <div className="min-h-screen bg-pink-100 p-8">
+      {!showImages ? (
+        <div className="flex flex-col items-center justify-center h-screen">
+          <div className="mb-8">
+            <img src="/api/placeholder/800/400" alt="Decorative background with tulips, butterflies, and puppies" className="rounded-lg shadow-lg" />
+          </div>
+          <button
+            onClick={toggleImages}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition duration-300 hover:scale-110"
+          >
+            <Heart size={32} />
+          </button>
+        </div>
+      ) : (
+        <div className="container mx-auto">
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {[
+              "14rI9ARDkbgb6FkGriDPUFw4by6obm2Vg",
+              "19ScYNqpKvbVHh-TjlakZ56c3PneWXpE",
+              "19ScYNqpKvbVHh--TjlakZ56c3PneWXpE",
+              "1uzBe6rZ82l4U2QZrZvJHR3FARv4bAXeN",
+              "15K2jMReLtZoMvxo-pXLzKBqWo12aji2J",
+              "1OsOtbWZiWqSyTFPS-3ivwECrN8YBV"
+            ].map((id, index) => (
+              <img
+                key={index}
+                src={`https://drive.google.com/uc?export=view&id=${id}`}
+                alt={`Image ${index + 1}`}
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            ))}
+          </div>
+          <div className="bg-white rounded-lg shadow-md p-4 flex items-center">
+            <img
+              src="https://i.pinimg.com/236x/78/96/ae/7896ae6c2591ece35c3333de12dff8a2.jpg"
+              alt="Indila - Love Story"
+              className="w-16 h-16 rounded-full mr-4"
+            />
+            <div className="flex-grow">
+              <h3 className="font-bold">Indila - Love Story</h3>
+              <div className="flex items-center justify-center mt-2">
+                <button className="mr-4" onClick={() => console.log('Previous track')}>
+                  <SkipBack />
+                </button>
+                <button className="mr-4" onClick={togglePlay}>
+                  {isPlaying ? <Pause /> : <Play />}
+                </button>
+                <button onClick={() => console.log('Next track')}>
+                  <SkipForward />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LoveStoryPage;
